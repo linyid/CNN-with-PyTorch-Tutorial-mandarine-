@@ -279,19 +279,19 @@ class CNN(nn.Module):
         input_size = x.size(0)
         # in: batch*1*28*28, out: batch*10*24*24(28-5+1)
         x = self.conv1(x)
-        # out: batch*24*24
+        # out: batch*10*24*24
         x = F.relu(x)
-        # in: batch*24*24, out: batch*10*12*
+        # in: batch*10*24*24, out: batch*10*12*12
         x = F.max_pool2d(x,2,2)
 
-        # in: batch*10*12*12, out: batch*120*10*10 (12-3+1)
+        # in: batch*10*12*12, out: batch*20*10*10 (12-3+1)
         x = self.conv2(x)
         x = F.relu(x)
 
         # 20*10*10 = 2000
         x = x.view(input_size,-1)
 
-        # in: batch*2000 out:batch*500
+        # in: batch*2000  out:batch*500
         x = self.fc1(x)
         x = F.relu(x)
 
